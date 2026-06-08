@@ -38,7 +38,7 @@ source .venv/bin/activate
 ### 4. Instalar dependências
 
 ```bash
-pip install opencv-python opencv-contrib-python numpy pillow streamlit
+pip install opencv-python opencv-contrib-python numpy pillow streamlit pandas plotly
 ```
 
 ### 5. Estrutura recomendada de pastas

@@ -75,7 +75,7 @@ def cadastro(person_name: str):
             "deploy.prototxt.txt", "res10_300x300_ssd_iter_140000.caffemodel"
         )
     else:
-        face_detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        face_detector = cv2.CascadeClassifier("models/haarcascade_frontalface_default.xml")
 
     cam = cv2.VideoCapture(0)
     folder_faces = "dataset/"

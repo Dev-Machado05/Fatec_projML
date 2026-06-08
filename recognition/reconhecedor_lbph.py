@@ -8,11 +8,11 @@ def identificar(conf_threshold=100, max_frames=None):
     # ROOT_DIR aponta para a raiz do projeto (um nível acima desta pasta)
     ROOT_DIR = Path(__file__).resolve().parent.parent
     DATA_PATH = ROOT_DIR / "db" / "employees.json"
-    FACE_NAMES_PATH = ROOT_DIR / "face_names.pickle"
+    FACE_NAMES_PATH = ROOT_DIR / "models" / "face_names.pickle"
 
-    detectorFace = cv2.CascadeClassifier(str(ROOT_DIR / "haarcascade_frontalface_default.xml"))
+    detectorFace = cv2.CascadeClassifier(str(ROOT_DIR / "models" / "haarcascade_frontalface_default.xml"))
     reconhecedor = cv2.face.LBPHFaceRecognizer_create()
-    reconhecedor.read(str(ROOT_DIR / "lbph_classifier.yml"))
+    reconhecedor.read(str(ROOT_DIR / "models" / "lbph_classifier.yml"))
     largura, altura = 220, 220
     font = cv2.FONT_HERSHEY_COMPLEX_SMALL
     camera = cv2.VideoCapture(0)
@@ -55,9 +55,7 @@ def identificar(conf_threshold=100, max_frames=None):
             break
 
         imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
-        facesDetectadas = detectorFace.detectMultiScale(imagemCinza,
-                                                        scaleFactor=1.5,
-                                                        minSize=(30,30))
+        facesDetectadas = detectorFace.detectMultiScale(imagemCinza, scaleFactor=1.5, minSize=(30,30))
         for (x, y, l, a) in facesDetectadas:
             imagemFace = cv2.resize(imagemCinza[y:y + a, x:x + l], (largura, altura))
             cv2.rectangle(imagem, (x, y), (x + l, y + a), (0,0,255), 2)
@@ -81,7 +79,8 @@ def identificar(conf_threshold=100, max_frames=None):
                 return {**funcionario, "_confidence": conf_val}
 
         cv2.imshow("Face", imagem)
-        if cv2.waitKey(1) == ord('q'):
+        key = cv2.waitKey(1)
+        if key == ord('q') or cv2.getWindowProperty("Face", cv2.WND_PROP_VISIBLE) < 1:
             break
 
     camera.release()
