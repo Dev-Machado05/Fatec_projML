@@ -119,8 +119,7 @@ st.markdown(
 )
 
 # --- ALTERAÇÃO AQUI: Bloco isolado para atualizar os minutos automaticamente ---
-# Executa a função interna a cada 10 segundos para garantir precisão na virada dos minutos
-@st.fragment(run_every=10)
+@st.fragment(run_every=10) # executa a cada 10s
 def render_status():
     st.markdown(
         f"""
@@ -130,7 +129,7 @@ def render_status():
         """, unsafe_allow_html=True)
 
 render_status()
-# --------------------------------------------------------------------------------
+# ------------------
 
 st.space("medium")
 

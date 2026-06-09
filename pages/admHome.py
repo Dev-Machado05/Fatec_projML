@@ -89,6 +89,10 @@ data_path = Path(__file__).resolve().parent.parent / "db" / "acessos.json"
 data = pd.read_json(data_path)
 user = json.loads(st.session_state.actUser)
 
+if (st.button("encerrar expediente:")):
+    st.session_state.identState = "encerrarExpediente"
+    st.switch_page("pages/ponto.py")
+
 st.markdown(
     f"""
     <div class="hero">
